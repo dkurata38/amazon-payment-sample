@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <th>購入日</th>
+            <th>購入商品名</th>
+            <th>単価</th>
+            <th>購入個数</th>
+            <th>小計</th>
+        </thead>
+        <tbody>
+            <tr th:each="purchaseHistory : ${memberPurchaseHistories}">
+                <td th:text="${purchaseHistory.purchasedDate()}"></td>
+                <td th:text="${purchaseHistory.purchasedCommodityName()}"></td>
+                <td th:text="${purchaseHistory.unitPrice()}"></td>
+                <td th:text="${purchaseHistory.amount()}"></td>
+                <td th:text="${purchaseHistory.subtotal()}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
