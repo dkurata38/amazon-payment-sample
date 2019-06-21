@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>購入日</th>
+                <th>購入商品名</th>
+                <th>単価</th>
+                <th>購入個数</th>
+                <th>小計</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="id: ${ids}">
+                <th:block th:if="${id.startsWith('c-')}" th:with="contract = ${memberContracts.get(id)}">
+                    <td th:text="${contract.beginDate}"></td>
+                    <td th:text="${contract.service.name}"></td>
+                    <td th:text="|${contract.service.priceByUnitMonth}円/${contract.service.unitMonths}ヶ月|"></td>
+                    <td th:text="|${contract.months}ヶ月|"></td>
+                    <td th:text="|${contract.service.priceByUnitMonth / contract.service.unitMonths * contract.months}円|"></td>
+                </th:block>
+                <th:block th:if="${id.startsWith('p-')}" th:with="purchase = ${memberPurchases.get(id)}">
+                    <td th:text="${purchase.purchasedDate}"></td>
+                    <td th:text="${purchase.commodity.name}"></td>
+                    <td th:text="|${purchase.commodity.unitPrice}円|"></td>
+                    <td th:text="|${purchase.amount}個|"></td>
+                    <td th:text="|${purchase.commodity.unitPrice * purchase.amount}円|"></td>
+                </th:block>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
