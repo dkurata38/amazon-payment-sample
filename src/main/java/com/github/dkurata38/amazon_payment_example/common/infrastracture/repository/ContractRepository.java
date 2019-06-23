@@ -16,7 +16,7 @@ public class ContractRepository implements IContractRepository {
     private static Service amazonMusicUnlimited = new Service(2, "Amazon Music Unlimited", 780, 1, 1560);
 
     private static List<Contract> contracts = Arrays.asList(
-            new Contract(1, amazonPrime, 1, 12, LocalDate.of(2019, 7, 4))
+            new Contract(1, amazonPrime, 1, 12, LocalDate.of(2019, 6, 4))
             ,new Contract(2, amazonMusicUnlimited, 1, 1, LocalDate.of(2019, 6, 4))
             ,new Contract(3, amazonMusicUnlimited, 1, 1, LocalDate.of(2019, 5, 4))
     );
