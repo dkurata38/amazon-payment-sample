@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PurchaseUseCase {
+public class PurchaseHistoryQueryService {
     private final IContractRepository contractRepository;
     private final IPurchaseRepository purchaseRepository;
 
-    public PurchaseUseCase(IContractRepository contractRepository, IPurchaseRepository purchaseRepository) {
+    public PurchaseHistoryQueryService(IContractRepository contractRepository, IPurchaseRepository purchaseRepository) {
         this.contractRepository = contractRepository;
         this.purchaseRepository = purchaseRepository;
     }

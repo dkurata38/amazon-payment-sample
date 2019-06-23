@@ -2,7 +2,7 @@ package com.github.dkurata38.amazon_payment_example.monomorphism.web;
 
 import com.github.dkurata38.amazon_payment_example.common.domain.entity.Contract;
 import com.github.dkurata38.amazon_payment_example.common.domain.entity.Purchase;
-import com.github.dkurata38.amazon_payment_example.monomorphism.application.PurchaseUseCase;
+import com.github.dkurata38.amazon_payment_example.monomorphism.application.PurchaseHistoryQueryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("monomorphism/purchase")
 public class PurchaseController {
-    private final PurchaseUseCase purchaseUseCase;
+    private final PurchaseHistoryQueryService purchaseHistoryQueryService;
 
-    public PurchaseController(PurchaseUseCase purchaseUseCase) {
-        this.purchaseUseCase = purchaseUseCase;
+    public PurchaseController(PurchaseHistoryQueryService purchaseHistoryQueryService) {
+        this.purchaseHistoryQueryService = purchaseHistoryQueryService;
     }
 
     @GetMapping("list/{memberId}")
     public ModelAndView listByBadDto(@PathVariable Integer memberId) {
-        List<Contract> memberContracts = purchaseUseCase.getMemberContracts(memberId);
-        List<Purchase> memberPurchases = purchaseUseCase.getMemberPurchases(memberId);
+        List<Contract> memberContracts = purchaseHistoryQueryService.getMemberContracts(memberId);
+        List<Purchase> memberPurchases = purchaseHistoryQueryService.getMemberPurchases(memberId);
 
         ModelAndView modelAndView = new ModelAndView("monomorphism/complex");
         // c-{id}形式のキーとContractのMap
@@ -41,16 +41,16 @@ public class PurchaseController {
 
         // idと購入日付のMapを生成し、購入日順にソート
         Map<String, LocalDate> contractDateMap = contractMap.entrySet().stream()
-                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().beginDate));
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().beginDate));
         Map<String, LocalDate> purchaseDateMap = purchaseMap.entrySet().stream()
-                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().purchasedDate));
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().purchasedDate));
 
         Map<String, LocalDate> idMap = new HashMap<>();
         idMap.putAll(contractDateMap);
         idMap.putAll(purchaseDateMap);
         List<String> ids = idMap.entrySet().stream()
-                .sorted(Comparator.comparing(entry -> entry.getValue()))
-                .map(entry -> entry.getKey())
+                .sorted(Comparator.comparing(Map.Entry::getValue))
+                .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
 
         modelAndView.addObject("ids", ids);
