@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.1.5/js/uikit-icons.min.js"></script></head>
 <body>
-    <table>
-        <thead>
-            <th>購入日</th>
-            <th>購入商品名</th>
-            <th>単価</th>
-            <th>購入個数</th>
-            <th>小計</th>
-        </thead>
-        <tbody>
-            <tr th:each="purchaseHistory : ${memberPurchaseHistories}">
-                <td th:text="${purchaseHistory.purchasedDate()}"></td>
-                <td th:text="${purchaseHistory.purchasedCommodityName()}"></td>
-                <td th:text="${purchaseHistory.unitPrice()}"></td>
-                <td th:text="${purchaseHistory.amount()}"></td>
-                <td th:text="${purchaseHistory.subtotal()}"></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="uk-section">
+    <div class="uk-container">
+        <h3>購入履歴</h3>
+        <section>
+            <table class="uk-table">
+                <thead>
+                    <th>購入日</th>
+                    <th>購入商品名</th>
+                    <th>単価</th>
+                    <th>購入個数</th>
+                    <th>小計</th>
+                </thead>
+                <tbody>
+                    <tr th:each="purchaseHistory : ${memberPurchaseHistories}">
+                        <td th:text="${purchaseHistory.purchasedDate()}"></td>
+                        <td th:text="${purchaseHistory.purchasedCommodityName()}"></td>
+                        <td th:text="${purchaseHistory.unitPrice()}"></td>
+                        <td th:text="${purchaseHistory.amount()}"></td>
+                        <td th:text="${purchaseHistory.subtotal()}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
 </body>
 </html>
