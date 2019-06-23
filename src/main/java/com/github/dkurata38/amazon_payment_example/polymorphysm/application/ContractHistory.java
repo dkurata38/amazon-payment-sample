@@ -4,7 +4,7 @@ import com.github.dkurata38.amazon_payment_example.common.domain.entity.Contract
 
 import java.time.LocalDate;
 
-public class ContractHistory implements PurchaseHistory {
+public class ContractHistory implements History {
     private final Contract contract;
 
     public ContractHistory(Contract contract) {

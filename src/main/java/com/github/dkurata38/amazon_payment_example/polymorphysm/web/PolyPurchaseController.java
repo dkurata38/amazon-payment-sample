@@ -1,6 +1,6 @@
 package com.github.dkurata38.amazon_payment_example.polymorphysm.web;
 
-import com.github.dkurata38.amazon_payment_example.polymorphysm.application.PurchaseHistory;
+import com.github.dkurata38.amazon_payment_example.polymorphysm.application.History;
 import com.github.dkurata38.amazon_payment_example.polymorphysm.application.PurchaseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class PolyPurchaseController {
 
     @GetMapping("list/{memberId}")
     public ModelAndView getInterface(@PathVariable("memberId") Integer memberId) {
-        List<PurchaseHistory> memberPurchaseHistories = purchaseService.getMemberPurchaseHistory(memberId);
+        List<History> memberPurchaseHistories = purchaseService.getMemberPurchaseHistory(memberId);
         ModelAndView modelAndView = new ModelAndView("polymorphism/list");
         modelAndView.addObject("memberPurchaseHistories", memberPurchaseHistories);
         return modelAndView;

@@ -21,13 +21,13 @@ public class PurchaseService {
         this.contractRepository = contractRepository;
     }
 
-    public List<PurchaseHistory> getMemberPurchaseHistory(Integer memberId) {
+    public List<History> getMemberPurchaseHistory(Integer memberId) {
         List<Purchase> purchases = purchaseRepository.findByMemberId(memberId);
-        Stream<CommodityPurchaseHistory> commodityPurchaseHistoryStream = purchases.stream().map(CommodityPurchaseHistory::new);
+        Stream<PurchaseHistory> commodityPurchaseHistoryStream = purchases.stream().map(PurchaseHistory::new);
         List<Contract> contracts = contractRepository.findByMemberId(memberId);
         Stream<ContractHistory> contractHistoryStream = contracts.stream().map(ContractHistory::new);
         return Stream.concat(commodityPurchaseHistoryStream, contractHistoryStream)
-                .sorted(Comparator.comparing(PurchaseHistory::purchasedDate))
+                .sorted(Comparator.comparing(History::purchasedDate))
                 .collect(Collectors.toList());
     }
 }
