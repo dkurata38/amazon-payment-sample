@@ -31,12 +31,20 @@ public class PurchaseController {
         List<Purchase> memberPurchases = purchaseUseCase.getMemberPurchases(memberId);
 
         ModelAndView modelAndView = new ModelAndView("monomorphism/complex");
-        modelAndView.addObject("memberContracts", memberContracts.stream().collect(Collectors.toMap(c -> "c-" + c.id, c -> c)));
-        modelAndView.addObject("memberPurchases", memberPurchases.stream().collect(Collectors.toMap(p -> "p-" + p.id, p -> p)));
-        Map<String, LocalDate> contractDateMap = memberContracts.stream()
-                .collect(Collectors.toMap(element -> "c-" + element.id, element -> element.beginDate));
-        Map<String, LocalDate> purchaseDateMap = memberPurchases.stream()
-                .collect(Collectors.toMap(element -> "p-" + element.id, element -> element.purchasedDate));
+        // c-{id}形式のキーとContractのMap
+        Map<String, Contract> contractMap = memberContracts.stream().collect(Collectors.toMap(c -> "c-" + c.id, c -> c));
+        modelAndView.addObject("memberContracts", contractMap);
+
+        // p-{id}形式のキーとPurchaseのMap
+        Map<String, Purchase> purchaseMap = memberPurchases.stream().collect(Collectors.toMap(p -> "p-" + p.id, p -> p));
+        modelAndView.addObject("memberPurchases", purchaseMap);
+
+        // idと購入日付のMapを生成し、購入日順にソート
+        Map<String, LocalDate> contractDateMap = contractMap.entrySet().stream()
+                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().beginDate));
+        Map<String, LocalDate> purchaseDateMap = purchaseMap.entrySet().stream()
+                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue().purchasedDate));
+
         Map<String, LocalDate> idMap = new HashMap<>();
         idMap.putAll(contractDateMap);
         idMap.putAll(purchaseDateMap);
@@ -44,6 +52,7 @@ public class PurchaseController {
                 .sorted(Comparator.comparing(entry -> entry.getValue()))
                 .map(entry -> entry.getKey())
                 .collect(Collectors.toList());
+
         modelAndView.addObject("ids", ids);
         return modelAndView;
     }
