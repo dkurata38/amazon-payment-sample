@@ -31,7 +31,7 @@
                                 <td th:text="${contract.service.name}"></td>
                                 <td th:text="|${contract.service.priceByUnitMonth}円/${contract.service.unitMonths}ヶ月|"></td>
                                 <td th:text="|${contract.months}ヶ月|"></td>
-                                <td th:text="|${contract.service.priceByUnitMonth / contract.service.unitMonths * contract.months - contract.service.yearlyDiscount}円|"></td>
+                                <td th:text="|${contract.months == 12 ? contract.service.priceByUnitMonth / contract.service.unitMonths * contract.months - contract.service.yearlyDiscount : contract.service.priceByUnitMonth / contract.service.unitMonths * contract.months}円|"></td>
                             </th:block>
                             <th:block th:if="${id.startsWith('p-')}" th:with="purchase = ${memberPurchases.get(id)}">
                                 <td th:text="${purchase.purchasedDate}"></td>
