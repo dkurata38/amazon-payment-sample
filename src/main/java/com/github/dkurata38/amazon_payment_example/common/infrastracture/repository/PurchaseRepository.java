@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 @Repository
 public class PurchaseRepository implements IPurchaseRepository {
     private static List<Purchase> purchases = Arrays.asList(
-            new Purchase(1, new Commodity(1, "[改訂新版]マインドマップから始めるソフトウェアテスト", 2678), 1,1, LocalDate.of(2019,5,18))
-            ,new Purchase(2, new Commodity(2, "遊泳プログラマー: 時代にとらわれないプログラミング人生", 1296), 1,1, LocalDate.of(2019,5,18))
-            ,new Purchase(3, new Commodity(3, "集合・位相入門 (松坂和夫 数学入門シリーズ 1)", 2808), 1,1, LocalDate.of(2019,5,9))
-            ,new Purchase(4, new Commodity(4, "すごいHaskellたのしく学ぼう!", 3024), 1,1, LocalDate.of(2019,5,9))
-            ,new Purchase(5, new Commodity(5, "乙女男子に恋する乙女（３） (星海社コミックス)", 659), 1,1, LocalDate.of(2019,5,6))
+            new Purchase(1, new Commodity(1, "テストの本", 2678), 1,1, LocalDate.of(2019,5,18))
+            ,new Purchase(2, new Commodity(2, "キャリアの本", 1296), 1,1, LocalDate.of(2019,5,18))
+            ,new Purchase(3, new Commodity(3, "集合論の本", 2808), 1,1, LocalDate.of(2019,5,9))
+            ,new Purchase(4, new Commodity(4, "すごいH本", 3024), 1,1, LocalDate.of(2019,5,9))
+            ,new Purchase(5, new Commodity(5, "乙男がテーマの漫画", 659), 1,1, LocalDate.of(2019,5,6))
     );
 
 

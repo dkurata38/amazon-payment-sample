@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class ContractRepository implements IContractRepository {
-    private static Service amazonPrime = new Service(1, "Amazon プライム", 500, 1, 1100);
-    private static Service amazonMusicUnlimited = new Service(2, "Amazon Music Unlimited", 780, 1, 1560);
+    private static Service amazonPrime = new Service(1, "ぷらいむ", 500, 1, 1100);
+    private static Service amazonMusicUnlimited = new Service(2, "ストリーミングサービス", 780, 1, 1560);
 
     private static List<Contract> contracts = Arrays.asList(
             new Contract(1, amazonPrime, 1, 12, LocalDate.of(2019, 6, 4))
