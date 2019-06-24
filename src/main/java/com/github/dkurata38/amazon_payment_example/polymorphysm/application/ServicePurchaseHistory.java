@@ -33,6 +33,6 @@ public class ServicePurchaseHistory implements PurchaseHistory {
 
     @Override
     public String subtotal() {
-        return contract.service.priceByUnitMonth / contract.service.unitMonths * contract.months + "円";
+        return contract.service.priceByUnitMonth / contract.service.unitMonths * contract.months - contract.service.yearlyDiscount + "円";
     }
 }
