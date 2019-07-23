@@ -3,4 +3,9 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'amazon-payment-example'
+rootProject.name = 'root'
+
+include('web')
+include('application')
+include('domain')
+include('infrastructure')

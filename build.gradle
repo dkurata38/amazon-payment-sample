@@ -1,29 +1,48 @@
-plugins {
-	id 'org.springframework.boot' version '2.1.6.RELEASE'
-	id 'java'
-}
 
-apply plugin: 'io.spring.dependency-management'
+/*
+ * build script
+ * build.gradle自体が依存しているものを読みこむ。
+ * 例えばこのプロジェクトでは依存性の管理をSpringBoot Gradle Pluginに依存している。
+ * なので予めSpringBoot Gradle Pluginをクラスパスに追加しておく必要がある。
+ */
+buildscript {
+	ext {
+		springBootVersion = '2.1.6.RELEASE'
+	}
 
-group = 'com.github.dkurata38'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+	repositories {
+		mavenCentral()
+	}
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
-repositories {
-	mavenCentral()
-}
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'idea'
 
-dependencies {
-	compile 'org.springframework.boot:spring-boot-devtools'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	group = 'com.github.dkurata38.amazon-payment-sample'
+	version = '0.0.1-SNAPSHOT'
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+		}
+	}
+
+	dependencies{
+		compileOnly 'org.projectlombok:lombok'
+		annotationProcessor 'org.projectlombok:lombok'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	sourceCompatibility = '1.8'
+	targetCompatibility = '1.8'
 }

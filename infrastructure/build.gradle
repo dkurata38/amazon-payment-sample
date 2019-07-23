@@ -1,0 +1,11 @@
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile project(':domain')
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
+	runtimeOnly 'org.postgresql:postgresql'
+}
